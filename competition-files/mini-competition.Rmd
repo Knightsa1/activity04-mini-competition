@@ -6,3 +6,106 @@ output: github_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+
+```{r load_libraries}
+library(googlesheets4)
+library(tidyverse)
+library(tidymodels)
+library(olsrr)
+```
+**I added oslrr to the library to run the stepwise function below**
+
+```{r read_in_data}
+
+data <- read_csv("2022 Fall Data Challenge Dataset.xlsx - curated 2019-required.csv")
+
+```
+
+```{r}
+
+colnames(data)
+```
+
+**I looked a the variables to see what they meant.**
+
+**My interpretation of the question is that parents want to know what they can do to help their children do better in school. Looking at my variables I'm wondering if we should keep all the variables. For example in my set there was child's birth month and child's birth year. These are not things that the parent can change and I'm wondering if they belong in the data set.**
+
+
+| Variable      | Description                                   |
+| ------------- | --------------------------------------------- |
+| FCSCHOOL      | Satisfaction with school                      |
+| FCTEACHR      | Satisfaction with teachers                    |
+| FCSTDS        | Satisfaction with academic standards          |
+| FCORDER       | Satisfaction with discipline                  |
+| FCSUPPRT      | Satisfaction with staff/parent interaction    |
+| FHHOME        | Days Spent Doing Homework                     |
+| FHWKHRS       | Hours Spent Doing Homework                    |
+| FHAMOUNT      | Parents Feelings on Amount of Homework        |
+| FHCAMT        | Child's Feelings on Amount of Homework        |
+| FHPLACE       | Place to do Homework                          |
+| FHCHECKX      | Check for homework completion                 |
+| FHHELP        | Days help with Homework                       |
+| FOSTORY2X     | Had a story in the last week                  |
+| FOCRAFTS      | Did arts and crafts in the last week          |
+| FOGAMES       | Played board games in the last week           |
+| FOBUILDX      | Worked on a project in the last week          |
+| FOSPORT       | Played a sport in the last week               |
+| FORESPON      | Discussed Time Management in the last week    |
+| FOHISTX       | Discussed Ethnic Heritage in the last week    |
+| FODINNERX     | Ate a dinner together in the last week        |
+| FOLIBRAYX     | Went to the library in the last month         |
+| FOBOOKSTX     | Went to the bookstore in the last month       |
+| HDHEALTH      | Health of the child                           |
+| CDOBMM        | Birth month of the child                      |
+| CDOBYY        | Birth year of the child                       |
+
+
+```{r}
+summary(data)
+```
+
+**After looking at the documentation I saw that everything was basically on a scale of like 1-5.**
+
+**I think that ' SEGRADES ' and/or ' SEGRADEQ ' are our response variables.**
+
+
+```{r}
+data %>% 
+  ggplot(aes(x = SEGRADES, y = FCSCHOOL, jitter )) +
+  geom_point()
+```
+
+**I tried a correlation matrix for all of the variables but it got hard to read. I then looked at the correlation matrix for my variables. It was easier to read but I don't know how useful it was.**
+
+```{r}
+
+cor(data[26:50])
+
+```
+
+
+```{r}
+max_model <- lm(SEGRADES ~ ., data = data)
+
+max_model
+```
+
+```{r}
+
+max_model2 <- ols_step_both_aic(max_model, progress = TRUE)
+```
+
+
+```{r}
+
+step_wise <- ols_step_both_aic(max_model, details = TRUE)
+
+```
+
+**This took a few minutes to run. While I was running it I remembered we should probably do a training and testing data sets.**
+
+
+https://nces.ed.gov/nhes/pdf/pfi/2016_pfih.pdf
+
+https://nces.ed.gov/datalab/onlinecodebook/session/codebook/c1a8ab9d-8685-468b-a23f-c6962331c417
