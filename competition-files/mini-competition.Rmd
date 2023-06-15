@@ -25,6 +25,7 @@ data <- read_csv("2022 Fall Data Challenge Dataset.xlsx - curated 2019-required.
 ```{r}
 
 colnames(data)
+
 ```
 
 **I looked a the variables to see what they meant.**
@@ -33,32 +34,74 @@ colnames(data)
 
 
 | Variable      | Description                                   |
-| ------------- | --------------------------------------------- |
-| FCSCHOOL      | Satisfaction with school                      |
-| FCTEACHR      | Satisfaction with teachers                    |
-| FCSTDS        | Satisfaction with academic standards          |
-| FCORDER       | Satisfaction with discipline                  |
-| FCSUPPRT      | Satisfaction with staff/parent interaction    |
-| FHHOME        | Days Spent Doing Homework                     |
-| FHWKHRS       | Hours Spent Doing Homework                    |
-| FHAMOUNT      | Parents Feelings on Amount of Homework        |
-| FHCAMT        | Child's Feelings on Amount of Homework        |
-| FHPLACE       | Place to do Homework                          |
-| FHCHECKX      | Check for homework completion                 |
-| FHHELP        | Days help with Homework                       |
-| FOSTORY2X     | Had a story in the last week                  |
-| FOCRAFTS      | Did arts and crafts in the last week          |
-| FOGAMES       | Played board games in the last week           |
-| FOBUILDX      | Worked on a project in the last week          |
-| FOSPORT       | Played a sport in the last week               |
-| FORESPON      | Discussed Time Management in the last week    |
-| FOHISTX       | Discussed Ethnic Heritage in the last week    |
-| FODINNERX     | Ate a dinner together in the last week        |
-| FOLIBRAYX     | Went to the library in the last month         |
-| FOBOOKSTX     | Went to the bookstore in the last month       |
-| HDHEALTH      | Health of the child                           |
-| CDOBMM        | Birth month of the child                      |
-| CDOBYY        | Birth year of the child                       |
+| ------------- | --------------------------------------------------- |
+| BASMID        | Unique Child Identifier                             |
+| ALLGRADEX     | Current Grade                                       |
+| EDCPUB        | Type of School-Public                               |
+| SCCHOICE      | Choice in School Attendance                         |
+| SPUBCHOIX     | District Allows Choice                              |
+| SCONSIDR      | Other Schools Considered                            |
+| SCHLHRSWK     | Hours Attend school each week                       |
+| EINTNET       | Child Enrolled in Online Courses                    |
+| MOSTIMPT      | Most Important reason of online enrollment          |
+| INTNUM        | Number of Online Courses                            |
+| SEENJOY       | Child Enjoyment of School                           |
+| SEGRADES      | Child's Grades                                      |
+| SEABSNT       | Day's Absent                                        |
+| SEGRADEQ      | Description of School Work                          |
+| FSSPORTX      | Attend School Event                                 |
+| FSVOL         | Volunteer at School Event                           |
+| FSMTNG        | Attend a School Meeting                             |
+| FSATCNFN      | Attend Parent-Teacher Conference                    |
+| FSFUNDRS      | Participate in Fundraiser                           |
+| FSCOMMTE      | Participates in School Committee                    |
+| FSCOUNSLR     | Met with Guidance Counselor                         |
+| FSFREQ        | Times Participating in school meetings              |
+| FSNOTESX      | Receive notes or emails                             |
+| FSMEMO        | Receive school newsletter                           |
+| FCSCHOOL      | Satisfaction with school                            |
+| FCTEACHR      | Satisfaction with teachers                          |
+| FCSTDS        | Satisfaction with academic standards                |
+| FCORDER       | Satisfaction with discipline                        |
+| FCSUPPRT      | Satisfaction with staff/parent interaction          |
+| FHHOME        | Days Spent Doing Homework                           |
+| FHWKHRS       | Hours Spent Doing Homework                          |
+| FHAMOUNT      | Parents Feelings on Amount of Homework              |
+| FHCAMT        | Child's Feelings on Amount of Homework              |
+| FHPLACE       | Place to do Homework                                |
+| FHCHECKX      | Check for homework completion                       |
+| FHHELP        | Days help with Homework                             |
+| FOSTORY2X     | Had a story in the last week                        |
+| FOCRAFTS      | Did arts and crafts in the last week                |
+| FOGAMES       | Played board games in the last week                 |
+| FOBUILDX      | Worked on a project in the last week                |
+| FOSPORT       | Played a sport in the last week                     |
+| FORESPON      | Discussed Time Management in the last week          |
+| FOHISTX       | Discussed Ethnic Heritage in the last week          |
+| FODINNERX     | Ate a dinner together in the last week              |
+| FOLIBRAYX     | Went to the library in the last month               |
+| FOBOOKSTX     | Went to the bookstore in the last month             |
+| HDHEALTH      | Health of the child                                 |
+| CDOBMM        | Birth month of the child                            |
+| CDOBYY        | Birth year of the child                             |
+| CSEX          | Sex of the child                                    |
+| CSPEAKX       | Language the child uses at home                     |
+| HHTOTALXX     | Total People in the Household                       |
+| RELATION      | How the surveyed is related to the child            |
+| P1REL         | Relation of First Parent to the child               |
+| P1SEX         | Sex of the First Parent                             |
+| P1MRSTA       | Marital Status of First Parent                      |
+| P1EMPL        | Employment Status of First Parent                   |
+| P1HRSWK       | How many hours the First Parent works per week      |
+| P1MTHSWRK     | How many months does the First Parent work per year |   
+| P1AGE         | Age of the First Parent                             |
+| P2GUARD       | Is there a Second Guardian livin i the house        |         | TTLHHINC      | Total Income                                        |         | OWNRNTHB      | Own or rent house                                   |
+| CHLDNT        | Child Use of internet at home                       |         | SEFUTUREX"    | Expectations of child's future eductation           |         | DSBLTY        | Child has a disability                              |         | HHPARN19X     | Parental Structure of Household                     |
+| HHPARN19_BRD  | Household has a Second Parent                       |
+| NUMSIBSX      | Number of Siblings for child                        |
+| PARGRADEX     | Parent or Guardians Highest Education Level         |
+| RACEETH       | Race and Ethnicity of child                         |
+| INTACC        | Household has internet access                       |         | CENREG        | Census Region where the child lives                 |         | ZIPLOCL       | Zipcode classification by community type            |    
 
 
 ```{r}
@@ -72,7 +115,7 @@ summary(data)
 
 ```{r}
 data %>% 
-  ggplot(aes(x = SEGRADES, y = FCSCHOOL, jitter )) +
+  ggplot(aes(x = SEGRADES, y = FCSCHOOL )) +
   geom_point()
 ```
 
