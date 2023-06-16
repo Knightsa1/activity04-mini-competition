@@ -121,34 +121,70 @@ data %>%
 
 **I tried a correlation matrix for all of the variables but it got hard to read. I then looked at the correlation matrix for my variables. It was easier to read but I don't know how useful it was.**
 
-```{r}
-
-cor(data[26:50])
-
-```
-
-
-```{r}
-max_model <- lm(SEGRADES ~ ., data = data)
-
-max_model
-```
-
-```{r}
-
-max_model2 <- ols_step_both_aic(max_model, progress = TRUE)
-```
-
-
-```{r}
-
-step_wise <- ols_step_both_aic(max_model, details = TRUE)
-
-```
 
 **This took a few minutes to run. While I was running it I remembered we should probably do a training and testing data sets.**
 
 
+```{r}
+s_data <- data[,c(7, 8, 10, 11, 12, 13, 15, 16, 17, 18, 19, 20, 21, 22, 23,
+                  24, 25, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 
+                  44, 45, 46, 47, 48, 52, 65, 66, 73)]
+```
+
+```{r}
+
+# set seed before random split
+set.seed(1)
+# put 80% of the data into the training set
+school_split <- initial_split(s_data, prop = 0.80)
+
+# assign the two splits to data frames - with descriptive names
+school_train <- training(school_split)
+school_test <- testing(school_split)
+
+# splits
+#school_train
+```
+
+```{r}
+  lm_spec <- linear_reg() %>%
+  set_mode("regression") %>%
+  set_engine("lm")
+
+  lm_spec
+
+  mlr_mod <- lm_spec %>% 
+  fit(SEGRADES ~ ., data = s_data)
+
+  tidy(mlr_mod)
+
+```
+
+
+```{r}
+slr_aug <- augment(mlr_mod, new_data = school_test)
+slr_aug
+```
+
+``` {r}
+
+predict(mlr_mod, new_data = school_test)
+
+```
+
+```{r}
+
+# null model
+null_mod <- lm_spec %>% 
+fit(SEGRADES ~ ., data = s_data)
+
+anova(
+  extract_fit_engine(mlr_mod),
+  extract_fit_engine(null_mod)
+)
+
+```
+
 https://nces.ed.gov/nhes/pdf/pfi/2016_pfih.pdf
 
-https://nces.ed.gov/datalab/onlinecodebook/session/codebook/c1a8ab9d-8685-468b-a23f-c6962331c417
+https://nces.ed.gov/datalab/onlinecodebook/session/codebook/c1a8ab9d-8685-468b-a23f-c6962331c
