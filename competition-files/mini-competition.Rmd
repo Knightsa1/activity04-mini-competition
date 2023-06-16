@@ -101,7 +101,9 @@ colnames(data)
 | NUMSIBSX      | Number of Siblings for child                        |
 | PARGRADEX     | Parent or Guardians Highest Education Level         |
 | RACEETH       | Race and Ethnicity of child                         |
-| INTACC        | Household has internet access                       |         | CENREG        | Census Region where the child lives                 |         | ZIPLOCL       | Zipcode classification by community type            |    
+| INTACC        | Household has internet access                       |        
+| CENREG        | Census Region where the child lives                 |         
+| ZIPLOCL       | Zipcode classification by community type            |    
 
 
 ```{r}
