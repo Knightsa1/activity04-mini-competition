@@ -161,6 +161,89 @@ school_test <- testing(school_split)
   fit(SEGRADES ~ ., data = s_data)
 
   tidy(mlr_mod)
+  
+  
+  
+  # filtering to only large p values too see what values should be excluded from model
+  coefficient_summary <- tidy(mlr_mod)
+  filtered_summary <- coefficient_summary %>%
+  filter(p.value > 0.05)
+  
+  filtered_summary
+  
+```
+
+
+
+
+
+```{r rerunning model with high p-values exculed}
+  lm_spec <- linear_reg() %>%
+  set_mode("regression") %>%
+  set_engine("lm")
+
+  lm_spec
+
+  
+
+  #filtering to only <= .05 p val
+  coefficient_summary <- tidy(mlr_mod)
+  filtered_summary <- coefficient_summary %>%
+  filter(p.value <= 0.05, term != "(Intercept)")
+  
+  vars_for_new <- filtered_summary$term
+  
+  vars_for_new
+  
+  updated_data <- s_data %>% select(SEGRADES, all_of(vars_for_new))
+  
+  updated_mlr_mod <- lm_spec %>% 
+  fit(SEGRADES ~ ., data = updated_data)
+  
+  
+  updated_model_summary <- tidy(updated_mlr_mod)
+
+  
+  print(updated_model_summary)
+  
+  
+```
+```{r using rsq library - can't figure out other method}
+
+
+# null model
+null_mod <- lm_spec %>% 
+fit(SEGRADES ~ 1, data = updated_data)
+
+anova(
+  extract_fit_engine(updated_mlr_mod)
+)
+
+anova(
+  extract_fit_engine(null_mod)
+)
+
+anova(
+  extract_fit_engine(mlr_mod)
+)
+```
+
+```{r Bad idea - ignore }
+# Extract the residuals and predicted values
+residuals <- updated_mlr_mod$residuals
+predicted_values <- updated_mlr_mod$fitted.values
+
+# Calculate the total sum of squares (TSS)
+TSS <- sum((updated_data$SEGRADES - mean(updated_data$SEGRADES))^2)
+
+# Calculate the residual sum of squares (RSS)
+RSS <- sum(residuals^2)
+
+# Calculate the R-squared value
+r_squared <- 1 - RSS / TSS
+
+# Print the R-squared value
+cat("R-squared:", r_squared, "\n")
 
 ```
 
