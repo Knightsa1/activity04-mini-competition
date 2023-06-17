@@ -12,7 +12,6 @@ knitr::opts_chunk$set(echo = TRUE)
 library(googlesheets4)
 library(tidyverse)
 library(tidymodels)
-library(olsrr)
 ```
 **I added oslrr to the library to run the stepwise function below**
 
@@ -33,7 +32,7 @@ colnames(data)
 **My interpretation of the question is that parents want to know what they can do to help their children do better in school. Looking at my variables I'm wondering if we should keep all the variables. For example in my set there was child's birth month and child's birth year. These are not things that the parent can change and I'm wondering if they belong in the data set.**
 
 
-| Variable      | Description                                   |
+| Variable      | Description                                         |
 | ------------- | --------------------------------------------------- |
 | BASMID        | Unique Child Identifier                             |
 | ALLGRADEX     | Current Grade                                       |
@@ -95,13 +94,19 @@ colnames(data)
 | P1HRSWK       | How many hours the First Parent works per week      |
 | P1MTHSWRK     | How many months does the First Parent work per year |   
 | P1AGE         | Age of the First Parent                             |
-| P2GUARD       | Is there a Second Guardian livin i the house        |         | TTLHHINC      | Total Income                                        |         | OWNRNTHB      | Own or rent house                                   |
-| CHLDNT        | Child Use of internet at home                       |         | SEFUTUREX"    | Expectations of child's future eductation           |         | DSBLTY        | Child has a disability                              |         | HHPARN19X     | Parental Structure of Household                     |
+| P2GUARD       | Is there a Second Guardian living in the house      |         
+| TTLHHINC      | Total Income                                        |         
+| OWNRNTHB      | Own or rent house                                   |
+| CHLDNT        | Child Use of internet at home                       |         
+| SEFUTUREX     | Expectations of child's future education            |         
+| DSBLTY        | Child has a disability                              |                      | HHPARN19X     | Parental Structure of Household                     |
 | HHPARN19_BRD  | Household has a Second Parent                       |
 | NUMSIBSX      | Number of Siblings for child                        |
 | PARGRADEX     | Parent or Guardians Highest Education Level         |
 | RACEETH       | Race and Ethnicity of child                         |
-| INTACC        | Household has internet access                       |         | CENREG        | Census Region where the child lives                 |         | ZIPLOCL       | Zipcode classification by community type            |    
+| INTACC        | Household has internet access                       |         
+| CENREG        | Census Region where the child lives                 |         
+| ZIPLOCL       | Zipcode classification by community type            |    
 
 
 ```{r}
