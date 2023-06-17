@@ -105,8 +105,7 @@ colnames(data)
 | PARGRADEX     | Parent or Guardians Highest Education Level         |
 | RACEETH       | Race and Ethnicity of child                         |
 | INTACC        | Household has internet access                       |         
-| CENREG        | Census Region where the child lives                 |         
-| ZIPLOCL       | Zipcode classification by community type            |    
+  
 
 
 ```{r}
@@ -193,3 +192,4 @@ anova(
 https://nces.ed.gov/nhes/pdf/pfi/2016_pfih.pdf
 
 https://nces.ed.gov/datalab/onlinecodebook/session/codebook/c1a8ab9d-8685-468b-a23f-c6962331c
+
