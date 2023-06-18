@@ -180,12 +180,13 @@ predict(mlr_mod, new_data = school_test)
 
 # null model
 null_mod <- lm_spec %>% 
-fit(SEGRADES ~ ., data = s_data)
+fit(SEGRADES ~ 1, data = s_data)
 
 anova(
-  extract_fit_engine(mlr_mod),
-  extract_fit_engine(null_mod)
+  extract_fit_engine(null_mod),
+  extract_fit_engine(mlr_mod)
 )
+
 
 ```
 
