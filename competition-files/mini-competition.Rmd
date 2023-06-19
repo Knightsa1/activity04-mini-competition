@@ -273,6 +273,18 @@ anova(
 
 ```
 
+$$
+\hat{SEGRADES} = \\ 2.11 +  0.07 \times EINTNET + 0.15 \times SEENJOY + \\ 
+0.11 \times  SEABSNT + 0.11 \times FSSPORTX + 0.06 \times FSMTNG + \\
+-0.33 \times FSATCNFN + 0.04 \times FSFUNDRS + 0.14 \times FSCOMMTE + \\
+-0.15 \times FSNOTESX + 0.06 \times FHHOME + -0.03 \times FHWKHRS + \\
+-0.09 \times FHPLACE + 0.04 \times FHCHECKX + -0.09 \times FOSTORY2X + \\
+-0.29 \times FOCRAFTS + 0.1 \times FORESPON + 0.07 \times FOHISTX + \\
+-0.1 \times FOLIBRARYX + 0.07 \times FOBOOKSTX + 0.11 \times HDHEALTH + \\
+0.17 \times CHILDNT + -0.14 \times SEFUTUREX + -0.12 \times INTACC
+$$
+
+
 https://nces.ed.gov/nhes/pdf/pfi/2016_pfih.pdf
 
 https://nces.ed.gov/datalab/onlinecodebook/session/codebook/c1a8ab9d-8685-468b-a23f-c6962331c
